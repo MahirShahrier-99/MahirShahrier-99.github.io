@@ -14,9 +14,11 @@ $("#main").jpreLoader({
 // functions   ----------------------------------------
 function initKrobs() {
     "use strict";
+    var isMobile = $(window).width() < 979;
     var a = new Swiper(".swiper-container", {
         speed: 1e3,
         initialSlide: 0,
+        onlyExternal: isMobile,
         onSlideChangeStart: function(b) {
             $("nav .active").removeClass("active");
             $("nav  a").eq(a.activeIndex).addClass("active");

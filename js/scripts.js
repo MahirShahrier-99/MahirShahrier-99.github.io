@@ -69,16 +69,29 @@ function initKrobs() {
         b.preventDefault();
         $("nav .active").removeClass("active");
         $(this).addClass("active");
-        a.swipeTo($(this).index());
-        // Close hamburger menu after navigation on mobile
-        if ($(window).width() < 979 && !$("nav").hasClass("vis")) c();
+        if (isMobile) {
+            // Scroll to the section instead of Swiper slide
+            var idx = $(this).index();
+            var target = $(".swiper-slide").eq(idx);
+            if (target.length) {
+                $("html, body").animate({ scrollTop: target.offset().top }, 500);
+            }
+            // Close the menu
+            if (!$("nav").hasClass("vis")) c();
+        } else {
+            a.swipeTo($(this).index());
+        }
     });
     $("nav  a.swp").click(function(a) {
         a.preventDefault();
     });
     $(".start-button").click(function(b) {
         b.preventDefault();
-        a.swipeTo(1);
+        if (isMobile) {
+            $("html, body").animate({ scrollTop: $(".swiper-slide").eq(1).offset().top }, 500);
+        } else {
+            a.swipeTo(1);
+        }
     });
     $(".gw").click(function(b) {
         b.preventDefault();

@@ -4320,11 +4320,8 @@ section{ padding-top:70px; padding-bottom:70px; }
     footer .social-list{
         margin-top: 10px !important;
     }
-    /* Swiper full width on mobile */
-    .swiper-container, .swiper-wrapper, .swiper-slide{
-        width: 100% !important;
-        min-width: 100% !important;
-    }
+    /* Swiper container full width — do NOT override wrapper/slide width (Swiper calculates those dynamically) */
+    .swiper-container{ width: 100% !important; overflow: hidden !important; }
     /* Page title text */
     .page-title .content h2{
         font-size: 28px !important;

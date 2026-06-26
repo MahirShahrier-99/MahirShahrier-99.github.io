@@ -70,6 +70,8 @@ function initKrobs() {
         $("nav .active").removeClass("active");
         $(this).addClass("active");
         a.swipeTo($(this).index());
+        // Close hamburger menu after navigation on mobile
+        if ($(window).width() < 979 && !$("nav").hasClass("vis")) c();
     });
     $("nav  a.swp").click(function(a) {
         a.preventDefault();

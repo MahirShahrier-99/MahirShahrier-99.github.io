@@ -11,7 +11,7 @@
             return false
         });
         var c = readCookie("style");
-        if (c) switchStylestyle(c)
+        switchStylestyle(c || "green")
     });
 
     function switchStylestyle(styleName) {

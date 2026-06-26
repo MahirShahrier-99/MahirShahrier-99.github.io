@@ -328,10 +328,11 @@ function initKrobs() {
     f.owlCarousel({
         navigation: false,
         slideSpeed: 500,
-        pagination: false,
+        pagination: true,
+        paginationSpeed: 400,
         autoHeight: true,
         singleItem: true,
-        touchDrag: false,
+        touchDrag: true,
         mouseDrag: true
     });
     $(".testimonials-holder .next-slide-3").click(function() {
@@ -640,7 +641,7 @@ function initajaxjs() {
     });
 }
 
-$(window).load(function() {
+$(window).on("load", function() {
     ! function() {
         var a = $("#project-page-holder");
         var b = $(".open-project-link");
@@ -699,7 +700,7 @@ $(window).load(function() {
 // map   ----------------------------------------
 var map;
 
-var krobsmap = new google.maps.LatLng(40.761467, -73.956379);
+var krobsmap = (typeof google !== "undefined") ? new google.maps.LatLng(40.761467, -73.956379) : null;
 
 function initialize() {
     var a = [{

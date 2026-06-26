@@ -95,11 +95,19 @@ function initKrobs() {
     });
     $(".gw").click(function(b) {
         b.preventDefault();
-        a.swipeTo(2);
+        if (isMobile) {
+            $("html, body").animate({ scrollTop: $(".swiper-slide").eq(2).offset().top }, 500);
+        } else {
+            a.swipeTo(2);
+        }
     });
     $(".go-contact").click(function(b) {
         b.preventDefault();
-        a.swipeTo(3);
+        if (isMobile) {
+            $("html, body").animate({ scrollTop: $(".swiper-slide").eq(7).offset().top }, 500);
+        } else {
+            a.swipeTo(3);
+        }
     });
     $(".arrow-left").on("click", function(b) {
         b.preventDefault();

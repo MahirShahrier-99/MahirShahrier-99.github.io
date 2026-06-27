@@ -15,6 +15,35 @@ $("#main").jpreLoader({
 function initKrobs() {
     "use strict";
     var isMobile = $(window).width() < 979;
+
+    // On mobile: forcefully reset Swiper's JS-calculated inline styles
+    // so slides stack vertically with no horizontal offset
+    if (isMobile) {
+        setTimeout(function() {
+            var wrapper = document.querySelector('.swiper-wrapper');
+            if (wrapper) {
+                wrapper.style.cssText = 'display:block!important;width:100%!important;height:auto!important;transform:none!important;-webkit-transform:none!important;transition:none!important;';
+            }
+            document.querySelectorAll('.swiper-slide').forEach(function(slide) {
+                slide.style.width = '100%';
+                slide.style.float = 'none';
+                slide.style.display = 'block';
+            });
+        }, 100);
+    }
+
+    function resetSwiperForMobile() {
+        var wrapper = document.querySelector('.swiper-wrapper');
+        if (wrapper) {
+            wrapper.style.cssText = 'display:block!important;width:100%!important;height:auto!important;transform:none!important;-webkit-transform:none!important;transition:none!important;';
+        }
+        document.querySelectorAll('.swiper-slide').forEach(function(slide) {
+            slide.style.width = '100%';
+            slide.style.float = 'none';
+            slide.style.display = 'block';
+        });
+    }
+
     var a = new Swiper(".swiper-container", {
         speed: 1e3,
         initialSlide: 0,
@@ -65,6 +94,12 @@ function initKrobs() {
             }
         }
     });
+    // Reset Swiper inline styles on mobile so slides stack vertically
+    if (isMobile) {
+        resetSwiperForMobile();
+        setTimeout(resetSwiperForMobile, 200);
+        setTimeout(resetSwiperForMobile, 600);
+    }
     $("nav  a.swp").on("touchstart mousedown", function(b) {
         b.preventDefault();
         $("nav .active").removeClass("active");

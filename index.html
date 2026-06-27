@@ -4365,11 +4365,16 @@ section{ padding-top:70px; padding-bottom:70px; }
         font-size: 14px !important;
         text-shadow: 1px 1px 6px rgba(0,0,0,0.85) !important;
     }
-    /* Reduce side gaps — content goes closer to screen edges */
+    /* Reduce side gaps */
     .content{
-        width: 96% !important;
-        padding: 0 8px !important;
+        width: 100% !important;
+        padding: 0 12px !important;
         box-sizing: border-box !important;
+    }
+    /* Fix background images freezing on mobile (background-attachment: fixed breaks on Android/iOS) */
+    .bg, .bg-parallax, .slide-bg, section,
+    [style*="background"]{
+        background-attachment: scroll !important;
     }
     /* Layout fixes */
     .span6, .resume-title{

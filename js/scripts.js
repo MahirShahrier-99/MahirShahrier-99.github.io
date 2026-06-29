@@ -1,6 +1,21 @@
 // jpreLoader removed — show content immediately
 $(document).ready(function() {
     $("#main").css("opacity", "1");
+
+    // Center and space cards on mobile
+    if ($(window).width() <= 768) {
+        $('.open-project-link').each(function() {
+            var parentWidth = $(this).parent().width();
+            var cardWidth = Math.round(parentWidth * 0.82);
+            var leftOffset = Math.round((parentWidth - cardWidth) / 2);
+            this.style.setProperty('width', cardWidth + 'px', 'important');
+            this.style.setProperty('position', 'relative', 'important');
+            this.style.setProperty('left', leftOffset + 'px', 'important');
+            this.style.setProperty('float', 'none', 'important');
+            this.style.setProperty('display', 'block', 'important');
+            this.style.setProperty('margin-bottom', '36px', 'important');
+        });
+    }
 });
 // functions   ----------------------------------------
 function initKrobs() {
@@ -353,7 +368,7 @@ function initKrobs() {
         $(this).addClass("cur");
     });
     $(".show-ser").click(function() {
-        d.trigger("owl.goTo", 2);
+        d.trigger("owl.goTo", 1);
         $(".show-res, .show-about").removeClass("cur");
         $(this).addClass("cur");
     });

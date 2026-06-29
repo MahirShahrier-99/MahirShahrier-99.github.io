@@ -1,15 +1,6 @@
-// jpreLoader   ----------------------------------------
-$("#main").jpreLoader({
-    loaderVPos: "50%",
-    autoClose: true
-}, function() {
-    $("#main").animate({
-        opacity: "1"
-    }, {
-        queue: false,
-        duration: 700,
-        easing: "easeInOutQuad"
-    });
+// jpreLoader removed — show content immediately
+$(document).ready(function() {
+    $("#main").css("opacity", "1");
 });
 // functions   ----------------------------------------
 function initKrobs() {

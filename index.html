@@ -4721,22 +4721,13 @@ section{ padding-top:70px; padding-bottom:70px; }
 
 @media (max-width: 768px) {
     .open-project-link {
-        width: calc(50% - 12px) !important;
-        margin: 6px !important;
-        float: left !important;
-        box-sizing: border-box !important;
+        max-width: 82% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        margin-bottom: 20px !important;
+        float: none !important;
+        display: block !important;
         animation: cardGlow 1.8s ease-in-out infinite !important;
-    }
-    /* Smaller image height so 2 cards fit nicely */
-    .open-project-link .folio-img-holder img {
-        height: 130px !important;
-        object-fit: cover !important;
-    }
-    /* Smaller title text */
-    .open-project-link .box-details h3 {
-        font-size: 11px !important;
-        text-align: center !important;
-        padding: 6px 4px !important;
     }
 }
 </style>

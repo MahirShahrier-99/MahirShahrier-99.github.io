@@ -13,7 +13,8 @@ $(document).ready(function() {
             this.style.setProperty('left', leftOffset + 'px', 'important');
             this.style.setProperty('float', 'none', 'important');
             this.style.setProperty('display', 'block', 'important');
-            this.style.setProperty('margin-bottom', '36px', 'important');
+            this.style.setProperty('margin-top', '0', 'important');
+            this.style.setProperty('margin-bottom', '48px', 'important');
         });
     }
 });

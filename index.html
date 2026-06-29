@@ -211,7 +211,7 @@
                             <div class="left-colum">
                                 <!--about slider nav-->
                                 <span class="about-button show-about cur"><i class="fa fa-user"></i><span class="tooltip">About</span></span>
-                                <span class="about-button show-res"><i class="fa fa-rocket"></i><span class="tooltip">Skills</span></span>
+                                <span class="about-button show-res" style="display:none!important"><i class="fa fa-rocket"></i><span class="tooltip">Skills</span></span>
                                 <span class="about-button show-ser"><i class="fa fa-cogs"></i><span class="tooltip">Services</span></span>
                                 <div class="about-slider-holder">
                                     <!--about slider -->
@@ -4591,6 +4591,19 @@ section{ padding-top:70px; padding-bottom:70px; }
 @media(max-width:600px){
     .pres-card-top{flex-direction:column;align-items:flex-start;}
     .pres-date-loc{white-space:normal;}
+}
+
+/* Fix invisible close button on Soft Skills popup */
+.closeser {
+    background: none !important;
+    font-size: 24px !important;
+    color: #fff !important;
+    font-weight: bold !important;
+    line-height: 30px !important;
+    text-align: center !important;
+}
+.closeser::after {
+    content: "✕";
 }
 
 /* ---------- 6a. Resources & Outreach: visible headers + thumbnail cards ---------- */

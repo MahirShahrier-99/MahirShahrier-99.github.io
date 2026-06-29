@@ -4,18 +4,20 @@ $(document).ready(function() {
 
     // Center and space cards on mobile
     if ($(window).width() <= 768) {
-        $('.open-project-link').each(function() {
-            var parentWidth = $(this).parent().width();
-            var cardWidth = Math.round(parentWidth * 0.82);
-            var leftOffset = Math.round((parentWidth - cardWidth) / 2);
-            this.style.setProperty('width', cardWidth + 'px', 'important');
-            this.style.setProperty('position', 'relative', 'important');
-            this.style.setProperty('left', leftOffset + 'px', 'important');
-            this.style.setProperty('float', 'none', 'important');
-            this.style.setProperty('display', 'block', 'important');
-            this.style.setProperty('margin-top', '0', 'important');
-            this.style.setProperty('margin-bottom', '48px', 'important');
-        });
+        setTimeout(function() {
+            $('.open-project-link').each(function() {
+                var parentWidth = $(this).parent().width() || window.innerWidth;
+                var cardWidth = Math.round(parentWidth * 0.82);
+                var side = Math.round((parentWidth - cardWidth) / 2);
+                this.style.setProperty('width', cardWidth + 'px', 'important');
+                this.style.setProperty('float', 'none', 'important');
+                this.style.setProperty('display', 'block', 'important');
+                this.style.setProperty('margin-left', side + 'px', 'important');
+                this.style.setProperty('margin-right', side + 'px', 'important');
+                this.style.setProperty('margin-top', '0px', 'important');
+                this.style.setProperty('margin-bottom', '48px', 'important');
+            });
+        }, 300);
     }
 });
 // functions   ----------------------------------------

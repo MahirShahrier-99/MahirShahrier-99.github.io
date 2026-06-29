@@ -15,7 +15,7 @@ $(document).ready(function() {
                 this.style.setProperty('margin-left', side + 'px', 'important');
                 this.style.setProperty('margin-right', side + 'px', 'important');
                 this.style.setProperty('margin-top', '0px', 'important');
-                this.style.setProperty('margin-bottom', '48px', 'important');
+                this.style.setProperty('margin-bottom', '80px', 'important');
             });
         }, 300);
     }

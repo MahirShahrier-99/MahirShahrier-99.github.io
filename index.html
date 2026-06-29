@@ -4713,7 +4713,6 @@ section{ padding-top:70px; padding-bottom:70px; }
 #uni-to-top:hover{ transform:translateY(-2px); }
 
 /* ---- Mobile pulsing green glow ---- */
-/* filter:drop-shadow renders outside the layout — cannot be clipped by any parent overflow */
 @keyframes cardGlow {
     0%, 100% { filter: drop-shadow(0 0 5px #ADD71D) drop-shadow(0 0 2px #ADD71D); }
     50%       { filter: drop-shadow(0 0 1px rgba(173,215,29,0.1)); }
@@ -4723,7 +4722,8 @@ section{ padding-top:70px; padding-bottom:70px; }
     .open-project-link {
         width: 82% !important;
         position: relative !important;
-        left: 9% !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
         float: none !important;
         display: block !important;
         margin-bottom: 36px !important;

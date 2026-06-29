@@ -3958,9 +3958,9 @@ $("#testimonials-slider-6").owlCarousel({
             </div>
         </div>
         <!--contact  end-->
-        <!--=============== Styleswitch Panel Only in Demo ===============-->
-        
-        <div class="show-panel"><i class="fa fa-cog fa-spin"></i></div>
+        <!--=============== Styleswitch Panel hidden ===============-->
+
+        <div class="show-panel" style="display:none!important"><i class="fa fa-cog fa-spin"></i></div>
         <div class="panel">
             <h3>Switching color</h3>
             <div class="panel-container">
@@ -3979,7 +3979,7 @@ $("#testimonials-slider-6").owlCarousel({
     </div>
     <!-- Main end -->
     <!-- removed duplicate jQuery (kept single 3.6.0 in head) -->
-    <script type="text/javascript" src="js/jpreloader.min.js"></script>
+    <!-- jpreloader removed: was causing blank white screen on mobile -->
     <script type="text/javascript" src="js/plugins.js"></script>
     <script type="text/javascript" src="js/scripts.js"></script>
     <!--Styleswitch-->
@@ -4594,6 +4594,10 @@ section{ padding-top:70px; padding-bottom:70px; }
 }
 
 /* ---------- 6a. Resources & Outreach: visible headers + thumbnail cards ---------- */
+[id^="resources-"],
+[id^="outreach-"]{
+    padding: 20px 5% !important;
+}
 [id^="resources-"],
 [id^="outreach-"]{
     padding: 20px 5% !important;

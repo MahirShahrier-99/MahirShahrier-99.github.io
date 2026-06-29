@@ -15,7 +15,14 @@ $(document).ready(function() {
                 this.style.setProperty('margin-left', side + 'px', 'important');
                 this.style.setProperty('margin-right', side + 'px', 'important');
                 this.style.setProperty('margin-top', '0px', 'important');
-                this.style.setProperty('margin-bottom', '80px', 'important');
+                this.style.setProperty('margin-bottom', '0px', 'important');
+                // Insert a spacer after each card that nothing can override
+                var spacer = document.createElement('div');
+                spacer.className = 'card-spacer';
+                spacer.style.setProperty('height', '60px', 'important');
+                spacer.style.setProperty('clear', 'both', 'important');
+                spacer.style.setProperty('display', 'block', 'important');
+                $(this).after(spacer);
             });
         }, 300);
     }

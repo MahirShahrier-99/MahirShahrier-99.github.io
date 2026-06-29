@@ -4712,48 +4712,19 @@ section{ padding-top:70px; padding-bottom:70px; }
 }
 #uni-to-top:hover{ transform:translateY(-2px); }
 
-/* ---- Mobile tap flash on load (touch devices only) ---- */
-@keyframes tapFlash {
-    0%   { opacity: 0; }
-    18%  { opacity: 1; }
-    65%  { opacity: 1; }
-    100% { opacity: 0; }
+/* ---- Mobile pulsing green border glow (touch devices only) ---- */
+@keyframes cardPulse {
+    0%   { box-shadow: 0 0 0 0 rgba(173,215,29,0.6), 0 0 0 2px rgba(173,215,29,0.9); }
+    60%  { box-shadow: 0 0 0 10px rgba(173,215,29,0), 0 0 0 2px rgba(173,215,29,0.25); }
+    100% { box-shadow: 0 0 0 0 rgba(173,215,29,0), 0 0 0 2px rgba(173,215,29,0.9); }
 }
 
 @media (hover: none) {
     .folio-img-holder {
         position: relative !important;
-        overflow: hidden !important;
-    }
-    /* semi-transparent green overlay */
-    .folio-img-holder::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: rgba(173, 215, 29, 0.28);
-        z-index: 9;
-        pointer-events: none;
-        opacity: 0;
-        animation: tapFlash 2.2s ease-out 0.4s both;
-    }
-    /* "View details" pill in center */
-    .folio-img-holder::after {
-        content: "View details";
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        background: rgba(0, 0, 0, 0.62);
-        color: #fff;
-        font-size: 11px;
-        font-weight: 600;
-        padding: 5px 14px;
-        border-radius: 20px;
-        white-space: nowrap;
-        z-index: 10;
-        pointer-events: none;
-        opacity: 0;
-        animation: tapFlash 2.2s ease-out 0.4s both;
+        overflow: visible !important;
+        border-radius: 6px;
+        animation: cardPulse 2s ease-in-out infinite;
     }
 }
 </style>

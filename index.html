@@ -4712,47 +4712,48 @@ section{ padding-top:70px; padding-bottom:70px; }
 }
 #uni-to-top:hover{ transform:translateY(-2px); }
 
-/* ---- Mobile tap indicators (touch devices only) ---- */
+/* ---- Mobile tap flash on load (touch devices only) ---- */
+@keyframes tapFlash {
+    0%   { opacity: 0; }
+    18%  { opacity: 1; }
+    65%  { opacity: 1; }
+    100% { opacity: 0; }
+}
+
 @media (hover: none) {
-    /* Make image holder the positioning anchor */
     .folio-img-holder {
         position: relative !important;
         overflow: hidden !important;
     }
-    /* "+" badge — top-right corner */
+    /* semi-transparent green overlay */
     .folio-img-holder::before {
-        content: "+";
+        content: "";
         position: absolute;
-        top: 10px;
-        right: 10px;
-        width: 26px;
-        height: 26px;
-        border-radius: 50%;
-        background: #ADD71D;
-        color: #1a3a0f;
-        font-size: 18px;
-        font-weight: 700;
-        line-height: 26px;
-        text-align: center;
-        z-index: 10;
+        inset: 0;
+        background: rgba(173, 215, 29, 0.28);
+        z-index: 9;
         pointer-events: none;
+        opacity: 0;
+        animation: tapFlash 2.2s ease-out 0.4s both;
     }
-    /* "Tap to explore →" strip — bottom */
+    /* "View details" pill in center */
     .folio-img-holder::after {
-        content: "Tap to explore \2192";
+        content: "View details";
         position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: rgba(173, 215, 29, 0.92);
-        color: #1a3a0f;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 0, 0, 0.62);
+        color: #fff;
         font-size: 11px;
         font-weight: 600;
-        text-align: center;
-        padding: 6px 0;
+        padding: 5px 14px;
+        border-radius: 20px;
+        white-space: nowrap;
         z-index: 10;
         pointer-events: none;
-        letter-spacing: 0.3px;
+        opacity: 0;
+        animation: tapFlash 2.2s ease-out 0.4s both;
     }
 }
 </style>

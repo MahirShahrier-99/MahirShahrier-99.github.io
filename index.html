@@ -4751,6 +4751,22 @@ section{ padding-top:70px; padding-bottom:70px; }
         animation: cardGlow 1.8s ease-in-out infinite !important;
     }
 }
+
+/* Link affordance for res-item entries */
+.res-item .res-info a {
+    color: #3B6D11 !important;
+    text-decoration: underline !important;
+    text-underline-offset: 3px !important;
+    text-decoration-color: rgba(59,109,17,0.4) !important;
+}
+.res-item .res-info a:hover {
+    text-decoration-color: #3B6D11 !important;
+}
+.res-item .res-info a::after {
+    content: " ↗";
+    font-size: 0.82em;
+    opacity: 0.6;
+}
 </style>
 
 <!-- modal markup -->

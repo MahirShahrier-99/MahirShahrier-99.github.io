@@ -4647,13 +4647,14 @@ section{ padding-top:70px; padding-bottom:70px; }
 [id^="outreach-"]{
     padding: 20px 5% !important;
 }
-[id^="resources-"],
-[id^="outreach-"]{
-    padding: 20px 5% !important;
+/* Tighten spacing between adjacent outreach sub-sections */
+#outreach-blogs,
+#outreach-youtube {
+    padding-top: 6px !important;
 }
 [id^="resources-"] .resume-title,
 [id^="outreach-"] .resume-title{
-    padding:22px 0 10px;
+    padding: 8px 0 8px;
     width:100%;
     text-align:left;
 }

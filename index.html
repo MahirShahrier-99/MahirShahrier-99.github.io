@@ -4645,12 +4645,20 @@ section{ padding-top:70px; padding-bottom:70px; }
 /* ---------- 6a. Resources & Outreach: visible headers + thumbnail cards ---------- */
 [id^="resources-"],
 [id^="outreach-"]{
-    padding: 20px 5% !important;
+    padding: 20px 3% !important;
 }
 /* Tighten spacing between adjacent outreach sub-sections */
 #outreach-blogs,
 #outreach-youtube {
     padding-top: 6px !important;
+}
+/* Remove double-indent: content already has 3% section padding, no extra centering needed */
+[id^="resources-"] .content,
+[id^="outreach-"] .content {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
 }
 [id^="resources-"] .resume-title,
 [id^="outreach-"] .resume-title{

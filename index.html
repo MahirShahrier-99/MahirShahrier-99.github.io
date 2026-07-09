@@ -4752,6 +4752,13 @@ section{ padding-top:70px; padding-bottom:70px; }
     }
 }
 
+/* Mobile: thicken white overlay on work/experience cards so bg images don't bleed through */
+@media (max-width: 768px) {
+    .resume-container .overlay {
+        opacity: 0.93 !important;
+    }
+}
+
 /* Link affordance for res-item entries */
 .res-item .res-info a {
     color: #3B6D11 !important;

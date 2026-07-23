@@ -4314,6 +4314,10 @@ section{ padding-top:70px; padding-bottom:70px; }
         padding-right: 0 !important;
         box-sizing: border-box !important;
     }
+    /* Allow card glow to bleed outside content wrappers */
+    .content, section, .swiper-slide{
+        overflow: visible !important;
+    }
     /* Fixed top nav */
     .nav-holder{
         position: fixed !important;
@@ -4428,8 +4432,7 @@ section{ padding-top:70px; padding-bottom:70px; }
         transform: scale(1) translateX(0);
     }
     .box.grid-2.card-visible{
-        border-color: #a8c84a !important;
-        box-shadow: 0 0 0 2px rgba(168,200,74,0.25) !important;
+        box-shadow: 0 0 0 2px rgba(168,200,74,0.3) !important;
     }
 }
 @media (max-width: 480px){

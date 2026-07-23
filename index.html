@@ -4405,6 +4405,36 @@ section{ padding-top:70px; padding-bottom:70px; }
     #twitteritem .bg{ display: none !important; }
     #twitteritem{ background: #f4f4f4 !important; }
     #twitteritem .overlay{ display: none !important; }
+
+    /* ── Scroll-reveal "View →" pill ── */
+    .scroll-pill{
+        display: inline-flex;
+        align-items: center;
+        font-size: 11px;
+        font-weight: 600;
+        color: #4a7c1a;
+        background: #eaf3de;
+        border-radius: 20px;
+        padding: 4px 12px;
+        margin-top: 8px;
+        opacity: 0;
+        transform: scale(0.7) translateX(10px);
+        transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+        pointer-events: none;
+        white-space: nowrap;
+    }
+    .card-visible .scroll-pill{
+        opacity: 1;
+        transform: scale(1) translateX(0);
+    }
+    .box.grid-2.card-visible,
+    .resume-box.card-visible,
+    .res-item.card-visible,
+    .pres-card.card-visible,
+    .item.card-visible{
+        border-color: #a8c84a !important;
+        box-shadow: 0 0 0 2px rgba(168,200,74,0.25) !important;
+    }
 }
 @media (max-width: 480px){
     #home h2{ font-size: 22px !important; }
@@ -4993,6 +5023,66 @@ section{ padding-top:70px; padding-bottom:70px; }
 })();
 </script>
 
+<script>
+/* ── Scroll-reveal "View →" pills — mobile only ── */
+(function(){
+  if(window.innerWidth > 768) return;
+  function mkPill(){
+    var s = document.createElement('span');
+    s.className = 'scroll-pill';
+    s.textContent = 'View →';
+    return s;
+  }
+  var targets = [];
+
+  /* 1. Project cards (.box.grid-2) */
+  document.querySelectorAll('.box.grid-2').forEach(function(b){
+    var d = b.querySelector('.box-details');
+    if(d && !d.querySelector('.scroll-pill')){ d.appendChild(mkPill()); targets.push(b); }
+  });
+
+  /* 2. Work experience cards (.resume-box) */
+  document.querySelectorAll('.resume-box').forEach(function(b){
+    if(!b.querySelector('.scroll-pill')){ b.appendChild(mkPill()); targets.push(b); }
+  });
+
+  /* 3. Resource items (.res-item) */
+  document.querySelectorAll('.res-item').forEach(function(b){
+    var info = b.querySelector('.res-info');
+    if(info && !info.querySelector('.scroll-pill')){ info.appendChild(mkPill()); targets.push(b); }
+  });
+
+  /* 4. Presentation cards (.pres-card) */
+  document.querySelectorAll('.pres-card').forEach(function(b){
+    var btns = b.querySelector('.pres-btns');
+    if(btns && !b.querySelector('.scroll-pill')){ b.insertBefore(mkPill(), btns); targets.push(b); }
+  });
+
+  /* 5. Testimonial / Inspirations carousel items */
+  document.querySelectorAll('.item').forEach(function(b){
+    var s10 = b.querySelector('.span10');
+    if(s10 && !s10.querySelector('.scroll-pill')){ s10.appendChild(mkPill()); targets.push(b); }
+  });
+
+  /* 6. Item-boxes (Awards / Scholarships section) */
+  document.querySelectorAll('.item-box').forEach(function(b){
+    if(!b.querySelector('.scroll-pill')){ b.appendChild(mkPill()); targets.push(b); }
+  });
+
+  /* IntersectionObserver — trigger on 45% visibility */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        setTimeout(function(){ e.target.classList.add('card-visible'); }, 80);
+      } else {
+        e.target.classList.remove('card-visible');
+      }
+    });
+  },{ threshold: 0.45 });
+
+  targets.forEach(function(t){ io.observe(t); });
+})();
+</script>
 </body>
 
 </html>

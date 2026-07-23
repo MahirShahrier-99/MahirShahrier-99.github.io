@@ -4774,6 +4774,19 @@ section{ padding-top:70px; padding-bottom:70px; }
     font-size: 0.82em;
     opacity: 0.6;
 }
+
+/* ---------- Desktop nav always open ---------- */
+@media (min-width: 769px) {
+    nav {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+    }
+    .btn-menu-wrapper {
+        display: none !important;
+    }
+}
 </style>
 
 <!-- modal markup -->
@@ -4936,6 +4949,26 @@ section{ padding-top:70px; padding-bottom:70px; }
         var legacyTop = document.querySelectorAll('.scroll-btn, a[href="#top"], .to-top, .totop, .scroll-top');
         legacyTop.forEach(function(b){ b.addEventListener('click', function(ev){ ev.preventDefault(); scrollTopMost(); }); });
     });
+})();
+
+/* ---- Desktop nav: always keep open ---- */
+(function(){
+    var nav = document.querySelector('nav');
+    var btn = document.querySelector('.btn-menu-wrapper');
+    function keepOpen(){
+        if(window.innerWidth >= 769){
+            if(nav){ nav.style.cssText = 'display:block !important; opacity:1 !important; visibility:visible !important; transform:none !important;'; }
+            if(btn){ btn.style.display = 'none'; }
+        } else {
+            if(btn){ btn.style.display = ''; }
+        }
+    }
+    keepOpen();
+    window.addEventListener('resize', keepOpen);
+    /* prevent hamburger click from closing nav on desktop */
+    if(btn){ btn.addEventListener('click', function(e){
+        if(window.innerWidth >= 769){ e.stopImmediatePropagation(); keepOpen(); }
+    }, true); }
 })();
 </script>
 

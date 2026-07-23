@@ -4293,13 +4293,16 @@ section{ padding-top:70px; padding-bottom:70px; }
         float: none !important;
         width: 100% !important;
         display: block !important;
-        min-height: 100vh;
         height: auto !important;
         position: relative !important;
     }
+    /* Only main section slides (with bg photos) get full viewport height */
+    .swiper-slide.slide-bg{
+        min-height: 100vh;
+    }
     .container{
         height: auto !important;
-        min-height: 50vh;
+        min-height: 120px;
         overflow: visible !important;
         float: none !important;
         width: 100% !important;

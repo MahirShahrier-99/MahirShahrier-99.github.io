@@ -4777,17 +4777,7 @@ section{ padding-top:70px; padding-bottom:70px; }
 }
 #uni-to-top:hover{ transform:translateY(-2px); }
 
-/* ---- Mobile pulsing green glow ---- */
-@keyframes cardGlow {
-    0%, 100% { filter: drop-shadow(0 0 5px #ADD71D) drop-shadow(0 0 2px #ADD71D); }
-    50%       { filter: drop-shadow(0 0 1px rgba(173,215,29,0.1)); }
-}
-
-@media (max-width: 768px) {
-    .open-project-link {
-        animation: cardGlow 1.8s ease-in-out infinite !important;
-    }
-}
+/* Pulsing green glow removed — scroll-reveal pill now serves as tap indicator */
 
 /* Mobile: thicken white overlay on work/experience cards so bg images don't bleed through */
 @media (max-width: 768px) {

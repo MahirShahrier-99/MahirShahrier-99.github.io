@@ -4427,11 +4427,7 @@ section{ padding-top:70px; padding-bottom:70px; }
         opacity: 1;
         transform: scale(1) translateX(0);
     }
-    .box.grid-2.card-visible,
-    .resume-box.card-visible,
-    .res-item.card-visible,
-    .pres-card.card-visible,
-    .item.card-visible{
+    .box.grid-2.card-visible{
         border-color: #a8c84a !important;
         box-shadow: 0 0 0 2px rgba(168,200,74,0.25) !important;
     }
@@ -5024,7 +5020,7 @@ section{ padding-top:70px; padding-bottom:70px; }
 </script>
 
 <script>
-/* ── Scroll-reveal "View →" pills — mobile only ── */
+/* ── Scroll-reveal "View →" pills — project/publication cards on mobile only ── */
 (function(){
   if(window.innerWidth > 768) return;
   function mkPill(){
@@ -5035,38 +5031,10 @@ section{ padding-top:70px; padding-bottom:70px; }
   }
   var targets = [];
 
-  /* 1. Project cards (.box.grid-2) */
+  /* Only .box.grid-2 project cards (Education, Research, Publications, SUSTAINLab) */
   document.querySelectorAll('.box.grid-2').forEach(function(b){
     var d = b.querySelector('.box-details');
     if(d && !d.querySelector('.scroll-pill')){ d.appendChild(mkPill()); targets.push(b); }
-  });
-
-  /* 2. Work experience cards (.resume-box) */
-  document.querySelectorAll('.resume-box').forEach(function(b){
-    if(!b.querySelector('.scroll-pill')){ b.appendChild(mkPill()); targets.push(b); }
-  });
-
-  /* 3. Resource items (.res-item) */
-  document.querySelectorAll('.res-item').forEach(function(b){
-    var info = b.querySelector('.res-info');
-    if(info && !info.querySelector('.scroll-pill')){ info.appendChild(mkPill()); targets.push(b); }
-  });
-
-  /* 4. Presentation cards (.pres-card) */
-  document.querySelectorAll('.pres-card').forEach(function(b){
-    var btns = b.querySelector('.pres-btns');
-    if(btns && !b.querySelector('.scroll-pill')){ b.insertBefore(mkPill(), btns); targets.push(b); }
-  });
-
-  /* 5. Testimonial / Inspirations carousel items */
-  document.querySelectorAll('.item').forEach(function(b){
-    var s10 = b.querySelector('.span10');
-    if(s10 && !s10.querySelector('.scroll-pill')){ s10.appendChild(mkPill()); targets.push(b); }
-  });
-
-  /* 6. Item-boxes (Awards / Scholarships section) */
-  document.querySelectorAll('.item-box').forEach(function(b){
-    if(!b.querySelector('.scroll-pill')){ b.appendChild(mkPill()); targets.push(b); }
   });
 
   /* IntersectionObserver — trigger on 45% visibility */

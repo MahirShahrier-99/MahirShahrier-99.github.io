@@ -4239,6 +4239,10 @@ section{ padding-top:70px; padding-bottom:70px; }
         background-position:center center !important;
         background-repeat:no-repeat !important;
     }
+    /* Main section slides must have full viewport height — overrides min-height:auto above */
+    .swiper-slide.slide-bg{
+        min-height: 100vh !important;
+    }
     /* hide the left/right arrow navigation on touch screens */
     .arrow-nav,
     .about-image .customNavigation,
@@ -4397,6 +4401,10 @@ section{ padding-top:70px; padding-bottom:70px; }
     .res-thumb, .res-thumb-wide{ width: 100% !important; height: 120px !important; }
     .yt-channel-card{ flex-direction: column !important; }
     .yt-channel-banner{ width: 100% !important; height: 140px !important; }
+    /* Hide the large cartoon background in Education section — use plain color instead */
+    #twitteritem .bg{ display: none !important; }
+    #twitteritem{ background: #f4f4f4 !important; }
+    #twitteritem .overlay{ display: none !important; }
 }
 @media (max-width: 480px){
     #home h2{ font-size: 22px !important; }

@@ -430,9 +430,10 @@
                             <div class="overlay op8"></div>
                             <div class="bg" style="background:url(images/bg/Edu.jpg)"></div>
                             <div class="content">
+<h2 class="edu-mobile-title">Education</h2>
 <!-- Project Trigger -->
 <div class="box grid-2 notvisible open-project-link">
-    <a href="javascript:void(0)" class="open-project-special" 
+    <a href="javascript:void(0)" class="open-project-special"
        data-title="BSc in Civil Engineering"
        data-description="Minor: Transportation Engineering" 
        data-images="images/bg/RUETlogoinside.jpg"
@@ -4405,6 +4406,26 @@ section{ padding-top:70px; padding-bottom:70px; }
     #twitteritem .bg{ display: none !important; }
     #twitteritem{ background: #f4f4f4 !important; }
     #twitteritem .overlay{ display: none !important; }
+    /* Show an "Education" heading on mobile (desktop has it in the bg art) */
+    .edu-mobile-title{
+        display: block !important;
+        text-align: center;
+        font-size: 30px;
+        font-weight: 700;
+        color: #2f6b3e;
+        margin: 10px 0 26px;
+        padding-top: 20px;
+        position: relative;
+    }
+    .edu-mobile-title::after{
+        content: "";
+        display: block;
+        width: 46px;
+        height: 3px;
+        background: #8ec63f;
+        margin: 10px auto 0;
+        border-radius: 2px;
+    }
 
     /* ── Scroll-reveal pill — alternating slide + pulse ── */
     @keyframes pillPulse{
@@ -4604,6 +4625,9 @@ section{ padding-top:70px; padding-bottom:70px; }
     .pres-card-top{flex-direction:column;align-items:flex-start;}
     .pres-date-loc{white-space:normal;}
 }
+
+/* "Education" heading shows on mobile only (desktop shows it in the bg art) */
+.edu-mobile-title{ display: none; }
 
 /* ── "My work" button — shine sweep + pulsing ring (mobile + desktop) ── */
 #my-work-btn{

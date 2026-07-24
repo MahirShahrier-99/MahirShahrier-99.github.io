@@ -5092,7 +5092,7 @@ section{ padding-top:70px; padding-bottom:70px; }
     flyIdx++;
   });
 
-  /* IntersectionObserver — trigger on 20% visibility */
+  /* IntersectionObserver — fire as soon as any part enters, trigger a bit early */
   var io = new IntersectionObserver(function(entries){
     entries.forEach(function(e){
       if(e.isIntersecting){
@@ -5101,9 +5101,17 @@ section{ padding-top:70px; padding-bottom:70px; }
         e.target.classList.remove('card-visible');
       }
     });
-  },{ threshold: 0.2 });
+  },{ threshold: 0.01, rootMargin: '0px 0px -8% 0px' });
 
   targets.forEach(function(t){ io.observe(t); });
+
+  /* Failsafe: if any card is still hidden after 4s (observer missed it), reveal it */
+  setTimeout(function(){
+    targets.forEach(function(t){
+      var r = t.getBoundingClientRect();
+      if(r.top < window.innerHeight && r.bottom > 0){ t.classList.add('card-visible'); }
+    });
+  }, 4000);
 })();
 </script>
 </body>

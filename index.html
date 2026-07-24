@@ -5060,7 +5060,11 @@ section{ padding-top:70px; padding-bottom:70px; }
 </script>
 
 <script>
-/* ── Scroll-reveal pills — alternating left/right slide + pulse, mobile only ── */
+/* ── Fly-in cards + reveal pills — scroll-position based, mobile only ── */
+/* NOTE: uses vertical scroll position (not IntersectionObserver) because the
+   cards start translated fully off-screen horizontally, which an observer
+   can never detect as "intersecting". A horizontal translate does not change
+   an element's top/bottom, so getBoundingClientRect stays reliable here. */
 (function(){
   if(window.innerWidth > 768) return;
   var idx = 0;
@@ -5072,19 +5076,19 @@ section{ padding-top:70px; padding-bottom:70px; }
   }
   var targets = [];
 
-  /* Only .box.grid-2 project cards */
+  /* Project cards get an alternating pill + slide direction */
   document.querySelectorAll('.box.grid-2').forEach(function(b){
     var d = b.querySelector('.box-details');
     if(d && !d.querySelector('.scroll-pill')){
       var fromLeft = (idx % 2 === 1);
       d.appendChild(mkPill(fromLeft));
-      if(fromLeft){ b.classList.add('slide-left'); }  /* card enters from same side as pill */
+      if(fromLeft){ b.classList.add('slide-left'); }
       targets.push(b);
       idx++;
     }
   });
 
-  /* Resources & Outreach cards — fly in from alternating edges (no pill) */
+  /* Resources & Outreach cards — fly in only (no pill) */
   var flyIdx = 0;
   document.querySelectorAll('.res-item, .pres-card, .yt-channel-card').forEach(function(c){
     if(flyIdx % 2 === 1){ c.classList.add('slide-left'); }
@@ -5092,26 +5096,27 @@ section{ padding-top:70px; padding-bottom:70px; }
     flyIdx++;
   });
 
-  /* IntersectionObserver — fire as soon as any part enters, trigger a bit early */
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if(e.isIntersecting){
-        setTimeout(function(){ e.target.classList.add('card-visible'); }, 80);
-      } else {
-        e.target.classList.remove('card-visible');
-      }
-    });
-  },{ threshold: 0.01, rootMargin: '0px 0px -8% 0px' });
-
-  targets.forEach(function(t){ io.observe(t); });
-
-  /* Failsafe: if any card is still hidden after 4s (observer missed it), reveal it */
-  setTimeout(function(){
+  var ticking = false;
+  function check(){
+    ticking = false;
+    var vh = window.innerHeight;
     targets.forEach(function(t){
       var r = t.getBoundingClientRect();
-      if(r.top < window.innerHeight && r.bottom > 0){ t.classList.add('card-visible'); }
+      var inView = (r.top < vh * 0.88) && (r.bottom > vh * 0.05);
+      if(inView){
+        t.classList.add('card-visible');
+      } else {
+        t.classList.remove('card-visible');
+      }
     });
-  }, 4000);
+  }
+  function onScroll(){
+    if(!ticking){ ticking = true; requestAnimationFrame(check); }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll, {passive:true});
+  check();               /* initial pass */
+  setTimeout(check, 600); /* re-check after layout settles */
 })();
 </script>
 </body>

@@ -603,6 +603,7 @@ jQuery(document).ready(function($) {
                                     <a target="_blank" rel="noopener" href="https://drive.google.com/file/d/11jXiVV_yDmdkGsKEiOgSjgmmbKxeK63O/view?usp=drive_link" class="button content-button transition hide-icon"><i class="fa fa-download transition2"></i> <span class="text transition color-bg">Download Statement</span></a>
                                 </div>
                             </div>
+                            <h2 class="work-mobile-title">Work Experience</h2>
                             <div class="resume-container">
                                 <div class="resume-bg">
                                     <div class="bg transition" style="background:url('images/bg/UNDP Uganda .jpg')"></div>
@@ -4406,8 +4407,8 @@ section{ padding-top:70px; padding-bottom:70px; }
     #twitteritem .bg{ display: none !important; }
     #twitteritem{ background: #f4f4f4 !important; }
     #twitteritem .overlay{ display: none !important; }
-    /* Show an "Education" heading on mobile (desktop has it in the bg art) */
-    .edu-mobile-title{
+    /* Show section headings on mobile (desktop has them in the bg art) */
+    .edu-mobile-title, .work-mobile-title{
         display: block !important;
         text-align: center;
         font-size: 30px;
@@ -4417,7 +4418,8 @@ section{ padding-top:70px; padding-bottom:70px; }
         padding-top: 20px;
         position: relative;
     }
-    .edu-mobile-title::after{
+    .work-mobile-title{ margin-top: 24px; }
+    .edu-mobile-title::after, .work-mobile-title::after{
         content: "";
         display: block;
         width: 46px;
@@ -4626,8 +4628,8 @@ section{ padding-top:70px; padding-bottom:70px; }
     .pres-date-loc{white-space:normal;}
 }
 
-/* "Education" heading shows on mobile only (desktop shows it in the bg art) */
-.edu-mobile-title{ display: none; }
+/* Section headings that show on mobile only (desktop shows them in the bg art) */
+.edu-mobile-title, .work-mobile-title{ display: none; }
 
 /* ── "My work" button — shine sweep + pulsing ring (mobile + desktop) ── */
 #my-work-btn{

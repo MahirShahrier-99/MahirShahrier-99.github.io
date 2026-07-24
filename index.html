@@ -4427,7 +4427,7 @@ section{ padding-top:70px; padding-bottom:70px; }
         margin-top: 8px;
         opacity: 1;
         transform: translateX(110vw);
-        transition: transform 0.55s cubic-bezier(0.25,0.46,0.45,0.94);
+        transition: transform 1.1s cubic-bezier(0.16,1,0.3,1);
         pointer-events: none;
         white-space: nowrap;
     }
@@ -5040,7 +5040,7 @@ section{ padding-top:70px; padding-bottom:70px; }
   function mkPill(fromLeft){
     var s = document.createElement('span');
     s.className = 'scroll-pill' + (fromLeft ? ' pill-left' : '');
-    s.textContent = fromLeft ? '← View' : 'View →';
+    s.textContent = 'View';
     return s;
   }
   var targets = [];

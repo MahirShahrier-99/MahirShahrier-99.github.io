@@ -4410,7 +4410,11 @@ section{ padding-top:70px; padding-bottom:70px; }
     #twitteritem{ background: #f4f4f4 !important; }
     #twitteritem .overlay{ display: none !important; }
 
-    /* ── Scroll-reveal "View →" pill ── */
+    /* ── Scroll-reveal pill — alternating slide + pulse ── */
+    @keyframes pillPulse{
+        0%,100%{ opacity:1; transform:translateX(0) scale(1); }
+        50%{ opacity:0.5; transform:translateX(0) scale(0.93); }
+    }
     .scroll-pill{
         display: inline-flex;
         align-items: center;
@@ -4421,15 +4425,18 @@ section{ padding-top:70px; padding-bottom:70px; }
         border-radius: 20px;
         padding: 4px 12px;
         margin-top: 8px;
-        opacity: 0;
-        transform: scale(0.7) translateX(10px);
-        transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+        opacity: 1;
+        transform: translateX(110vw);
+        transition: transform 0.55s cubic-bezier(0.25,0.46,0.45,0.94);
         pointer-events: none;
         white-space: nowrap;
     }
+    .scroll-pill.pill-left{
+        transform: translateX(-110vw);
+    }
     .card-visible .scroll-pill{
-        opacity: 1;
-        transform: scale(1) translateX(0);
+        transform: translateX(0);
+        animation: pillPulse 1.4s ease-in-out 0.6s infinite;
     }
     .box.grid-2.card-visible{
         box-shadow: 0 0 0 2px rgba(168,200,74,0.3) !important;
@@ -4790,7 +4797,7 @@ section{ padding-top:70px; padding-bottom:70px; }
     .open-project-link {
         background: #fff !important;
         border-radius: 12px !important;
-        overflow: hidden !important;
+        overflow: visible !important;
         animation: cardGlow 1.8s ease-in-out infinite !important;
     }
 }
@@ -5026,21 +5033,27 @@ section{ padding-top:70px; padding-bottom:70px; }
 </script>
 
 <script>
-/* ── Scroll-reveal "View →" pills — project/publication cards on mobile only ── */
+/* ── Scroll-reveal pills — alternating left/right slide + pulse, mobile only ── */
 (function(){
   if(window.innerWidth > 768) return;
-  function mkPill(){
+  var idx = 0;
+  function mkPill(fromLeft){
     var s = document.createElement('span');
-    s.className = 'scroll-pill';
-    s.textContent = 'View →';
+    s.className = 'scroll-pill' + (fromLeft ? ' pill-left' : '');
+    s.textContent = fromLeft ? '← View' : 'View →';
     return s;
   }
   var targets = [];
 
-  /* Only .box.grid-2 project cards (Education, Research, Publications, SUSTAINLab) */
+  /* Only .box.grid-2 project cards */
   document.querySelectorAll('.box.grid-2').forEach(function(b){
     var d = b.querySelector('.box-details');
-    if(d && !d.querySelector('.scroll-pill')){ d.appendChild(mkPill()); targets.push(b); }
+    if(d && !d.querySelector('.scroll-pill')){
+      var fromLeft = (idx % 2 === 1);
+      d.appendChild(mkPill(fromLeft));
+      targets.push(b);
+      idx++;
+    }
   });
 
   /* IntersectionObserver — trigger on 45% visibility */

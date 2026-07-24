@@ -248,7 +248,7 @@
                                                 responsibility, and long-term vision. Thank you for visiting. Together, we can create a 
                                                 future in which the well-being of both people and the planet drives every decision.</p>
                                                 <div class="clearfix"></div>
-                                                <a href="#" class="button gw float-button content-button  transition hide-icon"><i class="fa fa-angle-right transition2"></i><span class="text transition color-bg">My work</span></a>
+                                                <a href="#" id="my-work-btn" class="button gw float-button content-button  transition hide-icon"><i class="fa fa-angle-right transition2"></i><span class="text transition color-bg">My work</span></a>
                                             </div>
                                         </div>
                                         <!--2 My Skills removed-->
@@ -4605,6 +4605,42 @@ section{ padding-top:70px; padding-bottom:70px; }
     .pres-date-loc{white-space:normal;}
 }
 
+/* ── "My work" button — shine sweep + pulsing ring (mobile + desktop) ── */
+#my-work-btn{
+    z-index: 1;
+}
+#my-work-btn .text{
+    position: relative;
+    z-index: 3;   /* keep label above the shine */
+}
+#my-work-btn::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -85%;
+    width: 55%;
+    height: 100%;
+    z-index: 2;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.55), transparent);
+    transform: skewX(-20deg);
+    animation: mwShine 2.8s ease-in-out infinite;
+    pointer-events: none;
+}
+@keyframes mwShine{
+    0%, 58%   { left: -85%; }
+    100%      { left: 135%; }
+}
+#my-work-btn{
+    animation: mwPulse 2.1s ease-in-out infinite;
+}
+@keyframes mwPulse{
+    0%, 100% { box-shadow: 0 0 0 0 rgba(142,198,63,0.55); }
+    50%      { box-shadow: 0 0 0 10px rgba(142,198,63,0); }
+}
+@media (prefers-reduced-motion: reduce){
+    #my-work-btn, #my-work-btn::before{ animation: none; }
+}
+
 /* Research Interests — hover overlay + lift */
 .open-project-link {
     transition: transform 0.25s ease, box-shadow 0.25s ease;
@@ -4973,6 +5009,23 @@ section{ padding-top:70px; padding-bottom:70px; }
             link.addEventListener('click', handler);
             link.addEventListener('touchend', handler);
         });
+
+        /* ---------------- "My work" button → Research section ---------------- */
+        var myWorkBtn = document.getElementById('my-work-btn');
+        if(myWorkBtn){
+            var RESEARCH_INDEX = 2; /* Home=0, About=1, Research=2 */
+            myWorkBtn.addEventListener('click', function(ev){
+                ev.preventDefault();
+                if(window.innerWidth > 1024){
+                    /* Desktop: reuse the Research nav link's own behavior */
+                    if(navLinks[RESEARCH_INDEX]) navLinks[RESEARCH_INDEX].click();
+                    var rSlide = document.querySelectorAll('.swiper-slide.slide-bg')[RESEARCH_INDEX];
+                    if(rSlide) rSlide.scrollIntoView({behavior:'smooth'});
+                } else {
+                    goToSlide(RESEARCH_INDEX);
+                }
+            });
+        }
 
         /* ---------------- Back to top ---------------- */
         var toTop = document.getElementById('uni-to-top');

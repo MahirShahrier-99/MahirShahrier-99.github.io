@@ -4314,10 +4314,6 @@ section{ padding-top:70px; padding-bottom:70px; }
         padding-right: 0 !important;
         box-sizing: border-box !important;
     }
-    /* Allow card glow to bleed outside content wrappers */
-    .content, section, .swiper-slide{
-        overflow: visible !important;
-    }
     /* Fixed top nav */
     .nav-holder{
         position: fixed !important;
@@ -4425,49 +4421,21 @@ section{ padding-top:70px; padding-bottom:70px; }
         border-radius: 20px;
         padding: 4px 12px;
         margin-top: 8px;
-        opacity: 1;
-        transform: translateX(110vw);
-        transition: transform 1.1s cubic-bezier(0.16,1,0.3,1);
+        opacity: 0;
+        transform: translateX(40px) scale(0.8);
+        transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.16,1,0.3,1);
         pointer-events: none;
         white-space: nowrap;
     }
     .scroll-pill.pill-left{
-        transform: translateX(-110vw);
+        transform: translateX(-40px) scale(0.8);
     }
     .card-visible .scroll-pill{
-        transform: translateX(0);
-        transition-delay: 0.35s;
-        animation: pillPulse 1.4s ease-in-out 1.4s infinite;
+        opacity: 1;
+        transform: translateX(0) scale(1);
+        animation: pillPulse 1.4s ease-in-out 0.7s infinite;
     }
     /* card-visible: no extra border — cardGlow animation handles the glow */
-
-    /* ── Cards fly in from alternating edges ── */
-    .box.grid-2{
-        opacity: 0;
-        transform: translateX(110vw);
-        transition: transform 1.1s cubic-bezier(0.16,1,0.3,1), opacity 0.8s ease;
-    }
-    .box.grid-2.slide-left{
-        transform: translateX(-110vw);
-    }
-    .box.grid-2.card-visible{
-        opacity: 1;
-        transform: translateX(0);
-    }
-
-    /* ── Resources & Outreach cards fly in from alternating edges ── */
-    .res-item, .pres-card, .yt-channel-card{
-        opacity: 0;
-        transform: translateX(110vw);
-        transition: transform 1.1s cubic-bezier(0.16,1,0.3,1), opacity 0.8s ease;
-    }
-    .res-item.slide-left, .pres-card.slide-left, .yt-channel-card.slide-left{
-        transform: translateX(-110vw);
-    }
-    .res-item.card-visible, .pres-card.card-visible, .yt-channel-card.card-visible{
-        opacity: 1;
-        transform: translateX(0);
-    }
 }
 @media (max-width: 480px){
     #home h2{ font-size: 22px !important; }
@@ -5060,11 +5028,7 @@ section{ padding-top:70px; padding-bottom:70px; }
 </script>
 
 <script>
-/* ── Fly-in cards + reveal pills — scroll-position based, mobile only ── */
-/* NOTE: uses vertical scroll position (not IntersectionObserver) because the
-   cards start translated fully off-screen horizontally, which an observer
-   can never detect as "intersecting". A horizontal translate does not change
-   an element's top/bottom, so getBoundingClientRect stays reliable here. */
+/* ── Scroll-reveal "View" pill on project cards — mobile only ── */
 (function(){
   if(window.innerWidth > 768) return;
   var idx = 0;
@@ -5076,24 +5040,13 @@ section{ padding-top:70px; padding-bottom:70px; }
   }
   var targets = [];
 
-  /* Project cards get an alternating pill + slide direction */
   document.querySelectorAll('.box.grid-2').forEach(function(b){
     var d = b.querySelector('.box-details');
     if(d && !d.querySelector('.scroll-pill')){
-      var fromLeft = (idx % 2 === 1);
-      d.appendChild(mkPill(fromLeft));
-      if(fromLeft){ b.classList.add('slide-left'); }
+      d.appendChild(mkPill(idx % 2 === 1));
       targets.push(b);
       idx++;
     }
-  });
-
-  /* Resources & Outreach cards — fly in only (no pill) */
-  var flyIdx = 0;
-  document.querySelectorAll('.res-item, .pres-card, .yt-channel-card').forEach(function(c){
-    if(flyIdx % 2 === 1){ c.classList.add('slide-left'); }
-    targets.push(c);
-    flyIdx++;
   });
 
   var ticking = false;
@@ -5102,21 +5055,18 @@ section{ padding-top:70px; padding-bottom:70px; }
     var vh = window.innerHeight;
     targets.forEach(function(t){
       var r = t.getBoundingClientRect();
-      var inView = (r.top < vh * 0.88) && (r.bottom > vh * 0.05);
-      if(inView){
+      if(r.top < vh * 0.88 && r.bottom > vh * 0.05){
         t.classList.add('card-visible');
       } else {
         t.classList.remove('card-visible');
       }
     });
   }
-  function onScroll(){
-    if(!ticking){ ticking = true; requestAnimationFrame(check); }
-  }
+  function onScroll(){ if(!ticking){ ticking = true; requestAnimationFrame(check); } }
   window.addEventListener('scroll', onScroll, {passive:true});
   window.addEventListener('resize', onScroll, {passive:true});
-  check();               /* initial pass */
-  setTimeout(check, 600); /* re-check after layout settles */
+  check();
+  setTimeout(check, 600);
 })();
 </script>
 </body>

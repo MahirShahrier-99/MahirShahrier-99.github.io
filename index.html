@@ -5036,22 +5036,8 @@ section{ padding-top:70px; padding-bottom:70px; }
             link.addEventListener('touchend', handler);
         });
 
-        /* ---------------- "My work" button → Research section ---------------- */
-        var myWorkBtn = document.getElementById('my-work-btn');
-        if(myWorkBtn){
-            var RESEARCH_INDEX = 2; /* Home=0, About=1, Research=2 */
-            myWorkBtn.addEventListener('click', function(ev){
-                ev.preventDefault();
-                if(window.innerWidth > 1024){
-                    /* Desktop: reuse the Research nav link's own behavior */
-                    if(navLinks[RESEARCH_INDEX]) navLinks[RESEARCH_INDEX].click();
-                    var rSlide = document.querySelectorAll('.swiper-slide.slide-bg')[RESEARCH_INDEX];
-                    if(rSlide) rSlide.scrollIntoView({behavior:'smooth'});
-                } else {
-                    goToSlide(RESEARCH_INDEX);
-                }
-            });
-        }
+        /* "My work" button navigation is handled by the site's built-in .gw
+           handler in scripts.js (goes to Research). No extra handler needed. */
 
         /* ---------------- Back to top ---------------- */
         var toTop = document.getElementById('uni-to-top');

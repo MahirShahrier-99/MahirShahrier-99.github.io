@@ -411,7 +411,8 @@
                             </div>
                         </section>
                         <!--section facts-->
-                        <section class="gray-bg subab" style="height: 400px; background:url(images/bg/bridgefinal.jpg)">
+                        <section class="gray-bg subab has-mobimg" style="height: 400px; background:url(images/bg/bridgefinal.jpg)">
+                            <img class="mob-full-img" src="images/bg/bridgefinal.jpg" alt="Bridging science and policy">
                             <div class="content">
                                 <div class="row-fluid">
                                     <div class="span4">
@@ -1106,7 +1107,8 @@ $(document).ready(function() {
                             </div>
                             <div class="overlay"></div>
                         </div>
-                        <section class="gray-bg subab" style="height: 400px; background:url(images/bg/Nexus\ Research.jpg)">
+                        <section class="gray-bg subab has-mobimg" style="height: 400px; background:url(images/bg/Nexus\ Research.jpg)">
+                            <img class="mob-full-img" src="images/bg/Nexus Research.jpg" alt="Water-Air-Waste-Energy Nexus research">
                             <div class="content">
                                 <div class="row-fluid">
                                     <div class="span4">
@@ -2495,9 +2497,10 @@ Dedicated Short Range Communication (DSRC), Digital Bangladesh." data-links="htt
                             </div>
                         </section>
                         <!--section subscribe-->
-                        <section id="subscribe" style="height: 480px;">
+                        <section id="subscribe" class="has-mobimg" style="height: 480px;">
                             <div class="overlay"></div>
                             <div class="bg bg-parallax" style="background:url(images/bg/ribbon.jpg)"></div>
+                            <img class="mob-full-img" src="images/bg/ribbon.jpg" alt="Research highlights">
                             <div class="content">
                                 <div class="subscribe-holder">
                                     <h3></h3>
@@ -2505,9 +2508,10 @@ Dedicated Short Range Communication (DSRC), Digital Bangladesh." data-links="htt
                                 </div>
                             </div>
                         </section>
-                        <section id="subscribe" style="height: 480px;">
+                        <section id="subscribe" class="has-mobimg" style="height: 480px;">
                             <div class="overlay"></div>
                             <div class="bg bg-parallax" style="background:url(images/bg/GlobalResearchPartnerships.jpg)"></div>
+                            <img class="mob-full-img" src="images/bg/GlobalResearchPartnerships.jpg" alt="Global research partnerships map">
                             <div class="content">
                                 <div class="subscribe-holder">
                                     <h3></h3>
@@ -4407,6 +4411,23 @@ section{ padding-top:70px; padding-bottom:70px; }
     #twitteritem .bg{ display: none !important; }
     #twitteritem{ background: #f4f4f4 !important; }
     #twitteritem .overlay{ display: none !important; }
+
+    /* Decorative banner sections: show the FULL image on mobile (not cropped) */
+    .has-mobimg{
+        height: auto !important;
+        min-height: 0 !important;
+        background: none !important;
+        padding: 0 !important;
+    }
+    .has-mobimg .bg, .has-mobimg .bg-parallax,
+    .has-mobimg .overlay, .has-mobimg .content{
+        display: none !important;
+    }
+    .mob-full-img{
+        display: block !important;
+        width: 100% !important;
+        height: auto !important;
+    }
     /* Show section headings on mobile (desktop has them in the bg art) */
     .edu-mobile-title, .work-mobile-title{
         display: block !important;
@@ -4630,6 +4651,9 @@ section{ padding-top:70px; padding-bottom:70px; }
 
 /* Section headings that show on mobile only (desktop shows them in the bg art) */
 .edu-mobile-title, .work-mobile-title{ display: none; }
+
+/* Full-image versions of decorative banner sections — hidden on desktop */
+.mob-full-img{ display: none; }
 
 /* ── "My work" button — shine sweep + pulsing ring (mobile + desktop) ── */
 #my-work-btn{

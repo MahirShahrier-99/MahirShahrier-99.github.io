@@ -4412,22 +4412,7 @@ section{ padding-top:70px; padding-bottom:70px; }
     #twitteritem{ background: #f4f4f4 !important; }
     #twitteritem .overlay{ display: none !important; }
 
-    /* Decorative banner sections: show the FULL image on mobile (not cropped) */
-    .has-mobimg{
-        height: auto !important;
-        min-height: 0 !important;
-        background: none !important;
-        padding: 0 !important;
-    }
-    .has-mobimg .bg, .has-mobimg .bg-parallax,
-    .has-mobimg .overlay, .has-mobimg .content{
-        display: none !important;
-    }
-    .mob-full-img{
-        display: block !important;
-        width: 100% !important;
-        height: auto !important;
-    }
+    /* (banner full-image rules are now global — see .has-mobimg above) */
     /* Show section headings on mobile (desktop has them in the bg art) */
     .edu-mobile-title, .work-mobile-title{
         display: block !important;
@@ -4652,8 +4637,22 @@ section{ padding-top:70px; padding-bottom:70px; }
 /* Section headings that show on mobile only (desktop shows them in the bg art) */
 .edu-mobile-title, .work-mobile-title{ display: none; }
 
-/* Full-image versions of decorative banner sections — hidden on desktop */
-.mob-full-img{ display: none; }
+/* Full-image versions of decorative banner sections — show FULL image at all sizes */
+.has-mobimg{
+    height: auto !important;
+    min-height: 0 !important;
+    background: none !important;
+    padding: 0 !important;
+}
+.has-mobimg .bg, .has-mobimg .bg-parallax,
+.has-mobimg .overlay, .has-mobimg .content{
+    display: none !important;
+}
+.mob-full-img{
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+}
 
 /* ── "My work" button — shine sweep + pulsing ring (mobile + desktop) ── */
 #my-work-btn{

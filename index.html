@@ -4438,7 +4438,7 @@ section{ padding-top:70px; padding-bottom:70px; }
     /* ── Scroll-reveal pill — alternating slide + pulse ── */
     @keyframes pillPulse{
         0%,100%{ opacity:1; transform:translateX(0) scale(1); }
-        50%{ opacity:0.5; transform:translateX(0) scale(0.93); }
+        50%{ opacity:0.85; transform:translateX(0) scale(1.06); }
     }
     .scroll-pill{
         display: inline-flex;
@@ -5142,11 +5142,10 @@ section{ padding-top:70px; padding-bottom:70px; }
     ticking = false;
     var vh = window.innerHeight;
     targets.forEach(function(t){
+      if(t.classList.contains('card-visible')) return; /* once shown, keep it */
       var r = t.getBoundingClientRect();
-      if(r.top < vh * 0.88 && r.bottom > vh * 0.05){
+      if(r.top < vh * 0.95 && r.bottom > 0){
         t.classList.add('card-visible');
-      } else {
-        t.classList.remove('card-visible');
       }
     });
   }

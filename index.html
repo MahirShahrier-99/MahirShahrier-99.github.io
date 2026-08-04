@@ -4621,36 +4621,8 @@ section{ padding-top:70px; padding-bottom:70px; }
 .edu-mobile-title, .work-mobile-title{ display: none; }
 
 /* Remove leftover template placeholder client logos + the old lopsided
-   "To top" blocks everywhere. Replaced by the uniform .site-footer bar below. */
+   "To top" blocks everywhere. */
 .clients-holder, #clients, .to-top-holder{ display: none !important; }
-
-/* Uniform footer bar (To top + copyright) — solid green bar, always readable */
-.site-footer{
-    width: 100%;
-    padding: 18px 12px 20px;
-    text-align: center;
-    box-sizing: border-box;
-    background: #7bab34;
-}
-.site-footer .sf-top{
-    display: inline-block;
-    font-size: 13px;
-    font-weight: 600;
-    color: #fff;
-    text-decoration: none;
-    padding: 7px 22px;
-    border: 1px solid rgba(255,255,255,0.7);
-    border-radius: 6px;
-    margin-bottom: 10px;
-    transition: background 0.2s ease;
-}
-.site-footer .sf-top:hover{ background: rgba(255,255,255,0.18); }
-.site-footer .sf-copy{
-    display: block;
-    font-size: 12px;
-    color: #eaf5d6;
-    letter-spacing: 0.3px;
-}
 
 /* Full-image versions of decorative banner sections — show FULL image at all sizes */
 .has-mobimg{
@@ -4917,11 +4889,6 @@ section{ padding-top:70px; padding-bottom:70px; }
         margin-bottom: 42px !important;
     }
 
-    /* On mobile: the floating ↑ button covers "to top", so hide the To-top link
-       and show just the copyright. The bar itself is injected only once (bottom
-       of the last section) by the script, not after every section. */
-    .site-footer .sf-top{ display: none !important; }
-    .site-footer{ padding: 13px 12px 15px !important; }
 }
 
 /* Mobile: thicken white overlay on work/experience cards so bg images don't bleed through */
@@ -5314,39 +5281,6 @@ section{ padding-top:70px; padding-bottom:70px; }
 })();
 </script>
 
-<script>
-/* ── Uniform footer bar (To top + copyright) ──
-   Desktop: on every page (below each section). Mobile: only once, at the
-   bottom of the last section (the floating ↑ button handles "to top"). */
-(function(){
-  var slides = document.querySelectorAll('.swiper-slide.slide-bg');
-  var isMobile = window.innerWidth <= 768;
-  var lastIndex = slides.length - 1;
-  slides.forEach(function(slide, i){
-    if(isMobile && i !== lastIndex) return;   /* mobile: last section only */
-    var cont = slide.querySelector('.container') || slide;
-    if(cont.querySelector('.site-footer')) return;
-    var f = document.createElement('div');
-    f.className = 'site-footer';
-    var showTop = (i !== 0); /* Home is already the top */
-    var html = '';
-    if(showTop){ html += '<a href="#" class="sf-top">&#8593; To top</a>'; }
-    html += '<span class="sf-copy">&copy; Mahir Shahrier. 2026</span>';
-    f.innerHTML = html;
-    var topLink = f.querySelector('.sf-top');
-    if(topLink){
-      topLink.addEventListener('click', function(e){
-        e.preventDefault();
-        var c = slide.querySelector('.container');
-        if(c && c.scrollTo){ c.scrollTo({ top: 0, behavior: 'smooth' }); }
-        else if(c){ c.scrollTop = 0; }
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-    }
-    cont.appendChild(f);
-  });
-})();
-</script>
 </body>
 
 </html>

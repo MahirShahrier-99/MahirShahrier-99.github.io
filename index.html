@@ -5149,10 +5149,17 @@ section{ padding-top:70px; padding-bottom:70px; }
     ticking = false;
     var vh = window.innerHeight;
     targets.forEach(function(t){
-      if(t.classList.contains('card-visible')) return; /* once shown, keep it */
       var r = t.getBoundingClientRect();
-      if(r.top < vh * 0.95 && r.bottom > 0){
+      var shown = t.classList.contains('card-visible');
+      /* Reveal when the card is meaningfully in view */
+      if(!shown && r.top < vh * 0.9 && r.bottom > vh * 0.1){
         t.classList.add('card-visible');
+      }
+      /* Reset ONLY when the card is completely off-screen (above or below),
+         so the reset is never visible and small scrolls don't flicker.
+         Re-entering the view then replays the effect. */
+      else if(shown && (r.bottom < 0 || r.top > vh)){
+        t.classList.remove('card-visible');
       }
     });
   }

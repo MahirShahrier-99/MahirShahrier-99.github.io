@@ -4624,31 +4624,31 @@ section{ padding-top:70px; padding-bottom:70px; }
    "To top" blocks everywhere. Replaced by the uniform .site-footer bar below. */
 .clients-holder, #clients, .to-top-holder{ display: none !important; }
 
-/* Uniform footer bar (To top + copyright) injected into every page */
+/* Uniform footer bar (To top + copyright) — solid green bar, always readable */
 .site-footer{
     width: 100%;
-    padding: 20px 12px 26px;
+    padding: 18px 12px 20px;
     text-align: center;
     box-sizing: border-box;
-    border-top: 1px solid rgba(0,0,0,0.06);
+    background: #7bab34;
 }
 .site-footer .sf-top{
     display: inline-block;
     font-size: 13px;
     font-weight: 600;
-    color: #5a8a1e;
+    color: #fff;
     text-decoration: none;
-    padding: 8px 22px;
-    border: 1px solid #8ec63f;
+    padding: 7px 22px;
+    border: 1px solid rgba(255,255,255,0.7);
     border-radius: 6px;
-    margin-bottom: 12px;
-    transition: background 0.2s ease, color 0.2s ease;
+    margin-bottom: 10px;
+    transition: background 0.2s ease;
 }
-.site-footer .sf-top:hover{ background: #8ec63f; color: #fff; }
+.site-footer .sf-top:hover{ background: rgba(255,255,255,0.18); }
 .site-footer .sf-copy{
     display: block;
     font-size: 12px;
-    color: #8a8a8a;
+    color: #eaf5d6;
     letter-spacing: 0.3px;
 }
 
@@ -4917,10 +4917,11 @@ section{ padding-top:70px; padding-bottom:70px; }
         margin-bottom: 42px !important;
     }
 
-    /* On mobile the floating ↑ button already covers "to top", so the footer
-       bar shows only the copyright there (its To-top link is hidden below). */
+    /* On mobile: the floating ↑ button covers "to top", so hide the To-top link
+       and show just the copyright. The bar itself is injected only once (bottom
+       of the last section) by the script, not after every section. */
     .site-footer .sf-top{ display: none !important; }
-    .site-footer{ padding: 14px 12px 18px !important; border-top: none !important; }
+    .site-footer{ padding: 13px 12px 15px !important; }
 }
 
 /* Mobile: thicken white overlay on work/experience cards so bg images don't bleed through */
@@ -5314,10 +5315,15 @@ section{ padding-top:70px; padding-bottom:70px; }
 </script>
 
 <script>
-/* ── Uniform footer bar (To top + copyright) on every page ── */
+/* ── Uniform footer bar (To top + copyright) ──
+   Desktop: on every page (below each section). Mobile: only once, at the
+   bottom of the last section (the floating ↑ button handles "to top"). */
 (function(){
   var slides = document.querySelectorAll('.swiper-slide.slide-bg');
+  var isMobile = window.innerWidth <= 768;
+  var lastIndex = slides.length - 1;
   slides.forEach(function(slide, i){
+    if(isMobile && i !== lastIndex) return;   /* mobile: last section only */
     var cont = slide.querySelector('.container') || slide;
     if(cont.querySelector('.site-footer')) return;
     var f = document.createElement('div');

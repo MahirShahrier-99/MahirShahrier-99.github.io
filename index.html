@@ -4867,12 +4867,14 @@ section{ padding-top:70px; padding-bottom:70px; }
     /* Gentle GPU-cheap entrance zoom — card scales up as it slides into view.
        transform is unused on these cards on mobile, so no conflict with the
        glow (filter) or the pill (child transform). One-time per card. */
-    .box.grid-2{
-        transform: scale(0.9);
-        transition: transform 0.7s cubic-bezier(0.16,1,0.3,1);
+    .box.grid-2,
+    .res-item, .pres-card, .yt-channel-card{
+        transform: scale(0.9) !important;
+        transition: transform 1.05s cubic-bezier(0.16,1,0.3,1) !important;
     }
-    .box.grid-2.card-visible{
-        transform: scale(1);
+    .box.grid-2.card-visible,
+    .res-item.card-visible, .pres-card.card-visible, .yt-channel-card.card-visible{
+        transform: scale(1) !important;
     }
 
     /* Space between "My work" button and the image section below it */
@@ -5135,6 +5137,11 @@ section{ padding-top:70px; padding-bottom:70px; }
       targets.push(b);
       idx++;
     }
+  });
+
+  /* Resources & Outreach cards — entrance zoom only (no pill) */
+  document.querySelectorAll('.res-item, .pres-card, .yt-channel-card').forEach(function(c){
+    targets.push(c);
   });
 
   var ticking = false;

@@ -221,19 +221,19 @@ function initKrobs() {
         }
     });
     // portfolio  ----------------------------------------
-    $("#folio_container").mixitup({
-        targetSelector: ".box",
-        effects: ["fade", "rotateX"],
-        easing: "snap",
-        transitionSpeed: 700,
-        layoutMode: "grid",
-        targetDisplayGrid: "inline-block",
-        targetDisplayList: "block"
-    });
-    $("#options li").click(function() {
-        $("#options li").removeClass("actcat");
-        $(this).addClass("actcat");
-    });
+    // mixitup disabled: its transform-based filtering conflicted with the mobile
+    // entrance-zoom transform. Filtering is now handled by a lightweight
+    // show/hide script in index.html (works on mobile + desktop).
+    //
+    // $("#folio_container").mixitup({
+    //     targetSelector: ".box",
+    //     effects: ["fade", "rotateX"],
+    //     easing: "snap",
+    //     transitionSpeed: 700,
+    //     layoutMode: "grid",
+    //     targetDisplayGrid: "inline-block",
+    //     targetDisplayList: "block"
+    // });
     // Magnific popup  ----------------------------------------
     $(".popup-with-move-anim").magnificPopup({
         type: "ajax",

@@ -2058,10 +2058,12 @@ jQuery(document).ready(function($) {
                                 <ul id="filters" class="option-set" data-option-key="filter">
                                     <li class="filter actcat transition" data-filter="all">All</li>
                                     <li class="filter transition" data-filter="Journal Articles">Journal Articles</li>
+                                    <li class="filter transition" data-filter="Conferences Proceedings">Conferences Proceedings</li>
+                                    <!-- TO RE-ENABLE LATER (when you publish these): just un-comment the lines below.
                                     <li class="filter transition" data-filter="Book Chapters">Book Chapters</li>
                                     <li class="filter transition" data-filter="Patents">Patents</li>
-                                    <li class="filter transition" data-filter="Conferences Proceedings">Conferences Proceedings</li>
                                     <li class="filter transition" data-filter="Presentations">Presentations</li>
+                                    -->
                                 </ul>
                             </div>
 
@@ -4618,8 +4620,37 @@ section{ padding-top:70px; padding-bottom:70px; }
 /* Section headings that show on mobile only (desktop shows them in the bg art) */
 .edu-mobile-title, .work-mobile-title{ display: none; }
 
-/* Remove leftover template placeholder client logos (alure/TTX-mix/etc.) everywhere */
-.clients-holder{ display: none !important; }
+/* Remove leftover template placeholder client logos + the old lopsided
+   "To top" blocks everywhere. Replaced by the uniform .site-footer bar below. */
+.clients-holder, #clients, .to-top-holder{ display: none !important; }
+
+/* Uniform footer bar (To top + copyright) injected into every page */
+.site-footer{
+    width: 100%;
+    padding: 20px 12px 26px;
+    text-align: center;
+    box-sizing: border-box;
+    border-top: 1px solid rgba(0,0,0,0.06);
+}
+.site-footer .sf-top{
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #5a8a1e;
+    text-decoration: none;
+    padding: 8px 22px;
+    border: 1px solid #8ec63f;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+.site-footer .sf-top:hover{ background: #8ec63f; color: #fff; }
+.site-footer .sf-copy{
+    display: block;
+    font-size: 12px;
+    color: #8a8a8a;
+    letter-spacing: 0.3px;
+}
 
 /* Full-image versions of decorative banner sections — show FULL image at all sizes */
 .has-mobimg{
@@ -4886,11 +4917,10 @@ section{ padding-top:70px; padding-bottom:70px; }
         margin-bottom: 42px !important;
     }
 
-    /* Mobile: hide the repeated "To top" blocks (the floating ↑ button covers
-       this on mobile) and collapse the now-empty clients section. Desktop keeps
-       "To top" because its slider layout has no floating button. */
-    .to-top-holder{ display: none !important; }
-    #clients{ display: none !important; }
+    /* On mobile the floating ↑ button already covers "to top", so the footer
+       bar shows only the copyright there (its To-top link is hidden below). */
+    .site-footer .sf-top{ display: none !important; }
+    .site-footer{ padding: 14px 12px 18px !important; border-top: none !important; }
 }
 
 /* Mobile: thicken white overlay on work/experience cards so bg images don't bleed through */
@@ -5248,6 +5278,67 @@ section{ padding-top:70px; padding-bottom:70px; }
       }, 2500);
     });
   }
+})();
+</script>
+
+<script>
+/* ── Publications filter (lightweight, transform-free) ──
+   Replaces the old mixitup plugin. Cards are hidden by default via
+   '#folio_container .mix { display:none }', so we reveal all on load, then
+   show/hide by category on tab click. No transforms, so it can't conflict
+   with the entrance-zoom on mobile. */
+(function(){
+  var container = document.getElementById('folio_container');
+  if(!container) return;
+  var boxes = Array.prototype.slice.call(container.querySelectorAll('.box'));
+  function setShown(b, show){
+    b.style.display = show ? 'inline-block' : 'none';
+    b.style.opacity = show ? '1' : '0';
+    if(show){ b.classList.add('card-visible'); } /* keep it full-size, not zoomed-down */
+  }
+  boxes.forEach(function(b){ setShown(b, true); });   /* show all initially */
+
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('#filters li.filter'));
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      var cat = tab.getAttribute('data-filter');
+      tabs.forEach(function(t){ t.classList.remove('actcat'); });
+      tab.classList.add('actcat');
+      boxes.forEach(function(b){
+        var show = (cat === 'all') || (b.className.indexOf(cat) !== -1);
+        setShown(b, show);
+      });
+    });
+  });
+})();
+</script>
+
+<script>
+/* ── Uniform footer bar (To top + copyright) on every page ── */
+(function(){
+  var slides = document.querySelectorAll('.swiper-slide.slide-bg');
+  slides.forEach(function(slide, i){
+    var cont = slide.querySelector('.container') || slide;
+    if(cont.querySelector('.site-footer')) return;
+    var f = document.createElement('div');
+    f.className = 'site-footer';
+    var showTop = (i !== 0); /* Home is already the top */
+    var html = '';
+    if(showTop){ html += '<a href="#" class="sf-top">&#8593; To top</a>'; }
+    html += '<span class="sf-copy">&copy; Mahir Shahrier. 2026</span>';
+    f.innerHTML = html;
+    var topLink = f.querySelector('.sf-top');
+    if(topLink){
+      topLink.addEventListener('click', function(e){
+        e.preventDefault();
+        var c = slide.querySelector('.container');
+        if(c && c.scrollTo){ c.scrollTo({ top: 0, behavior: 'smooth' }); }
+        else if(c){ c.scrollTop = 0; }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+    cont.appendChild(f);
+  });
 })();
 </script>
 </body>

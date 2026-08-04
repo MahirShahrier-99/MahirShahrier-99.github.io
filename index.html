@@ -5215,12 +5215,30 @@ section{ padding-top:70px; padding-bottom:70px; }
   }, { rootMargin: '1500px 1500px' });   /* big buffer: ready well before seen */
   els.forEach(function(el){ io.observe(el); });
 
-  /* Failsafe: once the page has settled, load any that never got triggered
-     (e.g. slides parked off-screen by the slider), so nothing stays blank. */
-  function loadRemaining(){
-    document.querySelectorAll('[data-bg]').forEach(apply);
+  /* Warm the main PAGE backgrounds (the slide backgrounds reachable from the
+     nav) during idle time just after first paint, so jumping Home -> Publications
+     etc. is instant instead of loading the background on arrival. Section
+     backgrounds inside each page stay lazy (loaded on scroll). */
+  function warmSlides(){
+    document.querySelectorAll('.swiper-slide.slide-bg[data-bg]').forEach(apply);
   }
-  window.addEventListener('load', function(){ setTimeout(loadRemaining, 2500); });
+  if('requestIdleCallback' in window){
+    requestIdleCallback(warmSlides, { timeout: 1800 });
+  } else {
+    window.addEventListener('load', function(){ setTimeout(warmSlides, 700); });
+  }
+
+  /* Failsafe (DESKTOP ONLY): the slider parks slides off-screen with transforms,
+     so the observer can miss them — load any stragglers after the page settles.
+     On mobile the plain vertical scroll never misses, so we skip this to avoid
+     downloading backgrounds for sections the visitor never reaches. */
+  if(window.innerWidth > 1024){
+    window.addEventListener('load', function(){
+      setTimeout(function(){
+        document.querySelectorAll('[data-bg]').forEach(apply);
+      }, 2500);
+    });
+  }
 })();
 </script>
 </body>

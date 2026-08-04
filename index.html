@@ -4618,6 +4618,9 @@ section{ padding-top:70px; padding-bottom:70px; }
 /* Section headings that show on mobile only (desktop shows them in the bg art) */
 .edu-mobile-title, .work-mobile-title{ display: none; }
 
+/* Remove leftover template placeholder client logos (alure/TTX-mix/etc.) everywhere */
+.clients-holder{ display: none !important; }
+
 /* Full-image versions of decorative banner sections — show FULL image at all sizes */
 .has-mobimg{
     height: auto !important;
@@ -4882,6 +4885,12 @@ section{ padding-top:70px; padding-bottom:70px; }
         float: none !important;
         margin-bottom: 42px !important;
     }
+
+    /* Mobile: hide the repeated "To top" blocks (the floating ↑ button covers
+       this on mobile) and collapse the now-empty clients section. Desktop keeps
+       "To top" because its slider layout has no floating button. */
+    .to-top-holder{ display: none !important; }
+    #clients{ display: none !important; }
 }
 
 /* Mobile: thicken white overlay on work/experience cards so bg images don't bleed through */

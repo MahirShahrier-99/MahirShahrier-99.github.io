@@ -4864,6 +4864,17 @@ section{ padding-top:70px; padding-bottom:70px; }
     /* animation pauses for off-screen cards (set by script) to save battery/CPU */
     .open-project-link.glow-paused{ animation-play-state: paused !important; }
 
+    /* Gentle GPU-cheap entrance zoom — card scales up as it slides into view.
+       transform is unused on these cards on mobile, so no conflict with the
+       glow (filter) or the pill (child transform). One-time per card. */
+    .box.grid-2{
+        transform: scale(0.9);
+        transition: transform 0.7s cubic-bezier(0.16,1,0.3,1);
+    }
+    .box.grid-2.card-visible{
+        transform: scale(1);
+    }
+
     /* Space between "My work" button and the image section below it */
     #my-work-btn{
         float: none !important;

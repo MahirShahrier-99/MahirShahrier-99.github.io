@@ -4624,18 +4624,17 @@ section{ padding-top:70px; padding-bottom:70px; }
    "To top" blocks everywhere. */
 .clients-holder, #clients, .to-top-holder{ display: none !important; }
 
-/* Per-slide footer bar (To top + copyright) — theme green. position:absolute
-   pins it to the slide's bottom and keeps it OUT of the layout flow, so it
-   can never stretch or break the slide. It belongs to the slide (scrolls away
-   with it), it is NOT fixed to the screen, and it is not added to Home. */
+/* Per-slide footer bar (To top + copyright) — theme green. Placed IN the normal
+   flow at the very end of each page's scroll content, so it only appears when
+   you scroll to the bottom of that page. Not fixed, not on Home. */
 .slide-foot{
-    position: absolute;
-    left: 0; bottom: 0;
+    display: block;
+    clear: both;
     width: 100%;
     background: #ADD71D;
     text-align: center;
-    padding: 16px 12px 12px;
-    z-index: 20;
+    padding: 22px 12px 18px;
+    margin-top: 30px;
     box-sizing: border-box;
 }
 .slide-foot .sfb-top{
@@ -4659,11 +4658,8 @@ section{ padding-top:70px; padding-bottom:70px; }
 }
 #mobile-copy{ display: none; }
 
-/* Desktop: anchor the absolute bar to each slide; give content bottom clearance
-   so nothing hides behind it; hide the now-redundant round button */
+/* Desktop: hide the now-redundant round button (the in-flow bar carries "To top") */
 @media (min-width: 769px){
-    .swiper-slide.slide-bg{ position: relative; }
-    .container{ padding-bottom: 86px !important; }
     #uni-to-top{ display: none !important; }
 }
 /* Mobile: no per-slide bar (the injection script is desktop-only). Show a
@@ -5016,28 +5012,27 @@ section{ padding-top:70px; padding-bottom:70px; }
 <div id="mobile-copy">&copy; Mahir Shahrier. 2026</div>
 
 <script>
-/* Footer bar pinned to the BOTTOM of each page (About → Contact, not Home).
-   Uses position:absolute on the slide, so it is out of the layout flow and
-   cannot stretch or break the slide — it just sits at that slide's bottom
-   and scrolls away with the slide (not fixed to the screen). Desktop only;
-   mobile uses the floating ↑ button + the #mobile-copy line. */
+/* Footer bar at the END of each page's content (About → Contact, not Home).
+   Appended IN the normal flow at the bottom of the scroll content, so it only
+   appears when you scroll to the bottom of a page. Desktop only; mobile uses
+   the floating ↑ button + the #mobile-copy line. */
 (function(){
   if(window.innerWidth <= 768) return;
   var slides = document.querySelectorAll('.swiper-slide.slide-bg');
   slides.forEach(function(slide, i){
     if(i === 0) return;                 /* skip Home */
-    if(slide.querySelector('.slide-foot')) return;
+    var cont = slide.querySelector('.container');
+    if(!cont || cont.querySelector('.slide-foot')) return;
     var bar = document.createElement('div');
     bar.className = 'slide-foot';
     bar.innerHTML = '<a href="#" class="sfb-top">&#8593; To top</a>' +
                     '<span class="sfb-copy">&copy; Mahir Shahrier. 2026</span>';
     bar.querySelector('.sfb-top').addEventListener('click', function(e){
       e.preventDefault();
-      var c = slide.querySelector('.container');
-      if(c && c.scrollTo){ c.scrollTo({ top: 0, behavior: 'smooth' }); }
-      else if(c){ c.scrollTop = 0; }
+      if(cont.scrollTo){ cont.scrollTo({ top: 0, behavior: 'smooth' }); }
+      else { cont.scrollTop = 0; }
     });
-    slide.appendChild(bar);
+    cont.appendChild(bar);           /* in-flow, at the end of the scroll content */
   });
 })();
 </script>

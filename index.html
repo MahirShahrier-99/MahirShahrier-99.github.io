@@ -4624,20 +4624,21 @@ section{ padding-top:70px; padding-bottom:70px; }
    "To top" blocks everywhere. */
 .clients-holder, #clients, .to-top-holder{ display: none !important; }
 
-/* Fixed footer bar (To top + copyright) — theme green. Because it is
-   position:fixed it is OUT of the document flow and can never stretch,
-   push, or break any slide/container. */
-#site-footer-bar{
-    position: fixed;
+/* Per-slide footer bar (To top + copyright) — theme green. position:absolute
+   pins it to the slide's bottom and keeps it OUT of the layout flow, so it
+   can never stretch or break the slide. It belongs to the slide (scrolls away
+   with it), it is NOT fixed to the screen, and it is not added to Home. */
+.slide-foot{
+    position: absolute;
     left: 0; bottom: 0;
     width: 100%;
     background: #ADD71D;
     text-align: center;
     padding: 16px 12px 12px;
-    z-index: 9997;
+    z-index: 20;
     box-sizing: border-box;
 }
-#site-footer-bar .sfb-top{
+.slide-foot .sfb-top{
     display: inline-block;
     font-size: 12px;
     font-weight: 600;
@@ -4649,8 +4650,8 @@ section{ padding-top:70px; padding-bottom:70px; }
     margin-bottom: 9px;
     transition: background 0.2s ease, color 0.2s ease;
 }
-#site-footer-bar .sfb-top:hover{ background: #2c4a00; color: #ADD71D; }
-#site-footer-bar .sfb-copy{
+.slide-foot .sfb-top:hover{ background: #2c4a00; color: #ADD71D; }
+.slide-foot .sfb-copy{
     display: block;
     font-size: 12px;
     color: #33520a;
@@ -4658,16 +4659,18 @@ section{ padding-top:70px; padding-bottom:70px; }
 }
 #mobile-copy{ display: none; }
 
-/* Desktop: give slides bottom clearance for the fixed bar; hide the now-redundant round button */
+/* Desktop: anchor the absolute bar to each slide; give content bottom clearance
+   so nothing hides behind it; hide the now-redundant round button */
 @media (min-width: 769px){
+    .swiper-slide.slide-bg{ position: relative; }
     .container{ padding-bottom: 86px !important; }
     #uni-to-top{ display: none !important; }
 }
-/* Mobile: the fixed bar is too intrusive on a phone, so hide it and show a
-   single plain copyright line at the very bottom instead. The floating round
-   ↑ button already handles "to top" on mobile. */
+/* Mobile: no per-slide bar (the injection script is desktop-only). Show a
+   single plain copyright line at the very bottom; the floating round ↑ button
+   already handles "to top" on mobile. */
 @media (max-width: 768px){
-    #site-footer-bar{ display: none !important; }
+    .slide-foot{ display: none !important; }
     #mobile-copy{
         display: block;
         text-align: center;
@@ -5009,25 +5012,32 @@ section{ padding-top:70px; padding-bottom:70px; }
 <!-- back-to-top button -->
 <button id="uni-to-top" aria-label="Back to top">&#8593;</button>
 
-<!-- fixed footer bar (To top + copyright) — fixed position, cannot affect slide layout -->
-<div id="site-footer-bar">
-    <a href="#" class="sfb-top">&#8593; To top</a>
-    <span class="sfb-copy">&copy; Mahir Shahrier. 2026</span>
-</div>
-
 <!-- mobile-only copyright line (shown once at the very bottom on phones) -->
 <div id="mobile-copy">&copy; Mahir Shahrier. 2026</div>
 
 <script>
+/* Footer bar pinned to the BOTTOM of each page (About → Contact, not Home).
+   Uses position:absolute on the slide, so it is out of the layout flow and
+   cannot stretch or break the slide — it just sits at that slide's bottom
+   and scrolls away with the slide (not fixed to the screen). Desktop only;
+   mobile uses the floating ↑ button + the #mobile-copy line. */
 (function(){
-  var t = document.querySelector('#site-footer-bar .sfb-top');
-  if(!t) return;
-  t.addEventListener('click', function(e){
-    e.preventDefault();
-    document.querySelectorAll('.container').forEach(function(c){
-      if(c.scrollTo){ c.scrollTo({ top: 0, behavior: 'smooth' }); } else { c.scrollTop = 0; }
+  if(window.innerWidth <= 768) return;
+  var slides = document.querySelectorAll('.swiper-slide.slide-bg');
+  slides.forEach(function(slide, i){
+    if(i === 0) return;                 /* skip Home */
+    if(slide.querySelector('.slide-foot')) return;
+    var bar = document.createElement('div');
+    bar.className = 'slide-foot';
+    bar.innerHTML = '<a href="#" class="sfb-top">&#8593; To top</a>' +
+                    '<span class="sfb-copy">&copy; Mahir Shahrier. 2026</span>';
+    bar.querySelector('.sfb-top').addEventListener('click', function(e){
+      e.preventDefault();
+      var c = slide.querySelector('.container');
+      if(c && c.scrollTo){ c.scrollTo({ top: 0, behavior: 'smooth' }); }
+      else if(c){ c.scrollTop = 0; }
     });
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    slide.appendChild(bar);
   });
 })();
 </script>

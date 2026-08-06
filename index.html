@@ -4656,6 +4656,14 @@ section{ padding-top:70px; padding-bottom:70px; }
     color: #eef6da;
     letter-spacing: 0.3px;
 }
+.slide-foot .sfb-tag{
+    display: block;
+    font-size: 14px;
+    font-style: italic;
+    color: #ffffff;
+    letter-spacing: 0.2px;
+    margin-top: 9px;
+}
 #mobile-copy{ display: none; }
 
 /* Desktop: hide the now-redundant round button (the in-flow bar carries "To top") */
@@ -4671,10 +4679,10 @@ section{ padding-top:70px; padding-bottom:70px; }
         display: block;
         text-align: center;
         padding: 18px 12px 24px;
-        font-size: 12px;
-        color: #5a5a5a;
         background: #f4f4f4;
     }
+    #mobile-copy .mc-copy{ display: block; font-size: 12px; color: #5a5a5a; letter-spacing: 0.3px; }
+    #mobile-copy .mc-tag{ display: block; font-size: 14px; font-style: italic; color: #3b5e0a; margin-top: 7px; }
 }
 
 /* Full-image versions of decorative banner sections — show FULL image at all sizes */
@@ -5009,7 +5017,7 @@ section{ padding-top:70px; padding-bottom:70px; }
 <button id="uni-to-top" aria-label="Back to top">&#8593;</button>
 
 <!-- mobile-only copyright line (shown once at the very bottom on phones) -->
-<div id="mobile-copy">&copy; Mahir Shahrier. 2026</div>
+<div id="mobile-copy"><span class="mc-copy">&copy; Mahir Shahrier. 2026</span><span class="mc-tag">Close observation, systems thinking, connected disciplines</span></div>
 
 <script>
 /* Footer bar at the END of each page's content (About → Contact, not Home).
@@ -5026,7 +5034,8 @@ section{ padding-top:70px; padding-bottom:70px; }
     var bar = document.createElement('div');
     bar.className = 'slide-foot';
     bar.innerHTML = '<a href="#" class="sfb-top">&#8593; To top</a>' +
-                    '<span class="sfb-copy">&copy; Mahir Shahrier. 2026</span>';
+                    '<span class="sfb-copy">&copy; Mahir Shahrier. 2026</span>' +
+                    '<span class="sfb-tag">Close observation, systems thinking, connected disciplines</span>';
     bar.querySelector('.sfb-top').addEventListener('click', function(e){
       e.preventDefault();
       if(cont.scrollTo){ cont.scrollTo({ top: 0, behavior: 'smooth' }); }

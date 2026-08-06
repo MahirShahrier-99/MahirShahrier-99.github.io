@@ -4628,14 +4628,34 @@ section{ padding-top:70px; padding-bottom:70px; }
    flow at the very end of each page's scroll content, so it only appears when
    you scroll to the bottom of that page. Not fixed, not on Home. */
 .slide-foot{
-    display: block;
     clear: both;
     width: 100%;
     background: rgba(173, 215, 29, 0.45);   /* dimmed / translucent theme green */
-    text-align: center;
-    padding: 22px 12px 18px;
     margin-top: 30px;
     box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 26px;
+}
+.slide-foot .sfb-copy{
+    flex: 1;
+    text-align: left;
+    font-size: 12px;
+    color: #eef6da;
+    letter-spacing: 0.3px;
+}
+.slide-foot .sfb-tag{
+    flex: 2;
+    text-align: center;
+    font-size: 14px;
+    font-style: italic;
+    color: #ffffff;
+    letter-spacing: 0.2px;
+}
+.slide-foot .sfb-right{
+    flex: 1;
+    text-align: right;
 }
 .slide-foot .sfb-top{
     display: inline-block;
@@ -4643,27 +4663,13 @@ section{ padding-top:70px; padding-bottom:70px; }
     font-weight: 600;
     color: #fff;
     text-decoration: none;
-    padding: 6px 20px;
+    padding: 6px 16px;
     border: 1px solid rgba(255,255,255,0.7);
     border-radius: 6px;
-    margin-bottom: 9px;
+    white-space: nowrap;
     transition: background 0.2s ease, color 0.2s ease;
 }
 .slide-foot .sfb-top:hover{ background: rgba(255,255,255,0.18); }
-.slide-foot .sfb-copy{
-    display: block;
-    font-size: 12px;
-    color: #eef6da;
-    letter-spacing: 0.3px;
-}
-.slide-foot .sfb-tag{
-    display: block;
-    font-size: 14px;
-    font-style: italic;
-    color: #ffffff;
-    letter-spacing: 0.2px;
-    margin-top: 9px;
-}
 #mobile-copy{ display: none; }
 
 /* Desktop: hide the now-redundant round button (the in-flow bar carries "To top") */
@@ -5033,9 +5039,9 @@ section{ padding-top:70px; padding-bottom:70px; }
     if(!cont || cont.querySelector('.slide-foot')) return;
     var bar = document.createElement('div');
     bar.className = 'slide-foot';
-    bar.innerHTML = '<a href="#" class="sfb-top">&#8593; To top</a>' +
-                    '<span class="sfb-copy">&copy; Mahir Shahrier. 2026</span>' +
-                    '<span class="sfb-tag">Close observation, systems thinking, connected disciplines</span>';
+    bar.innerHTML = '<span class="sfb-copy">&copy; Mahir Shahrier. 2026</span>' +
+                    '<span class="sfb-tag">Close observation, systems thinking, connected disciplines</span>' +
+                    '<span class="sfb-right"><a href="#" class="sfb-top">&#8593; To top</a></span>';
     bar.querySelector('.sfb-top').addEventListener('click', function(e){
       e.preventDefault();
       if(cont.scrollTo){ cont.scrollTo({ top: 0, behavior: 'smooth' }); }
